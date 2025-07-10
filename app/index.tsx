@@ -1,12 +1,13 @@
-import { Text, View } from "react-native";
+import { Redirect } from "expo-router";
 import '../global.css';
+import { useAuth } from "@/features/auth/selectors/useAuth";
 
 export default function Index() {
-  return (
-    <View
-      className="flex-1 justify-center items-center"
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
-}
+  const { user } = useAuth();
+
+  if (user) {
+    return <Redirect href={"/(tabs)/Dashboard"} />
+  }
+
+  return <Redirect href={"/(auth)/Login"} />
+};
